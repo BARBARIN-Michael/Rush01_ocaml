@@ -6,64 +6,66 @@
 (*   By: mbarbari <mbarbari@student.42.fr>          +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/11/14 15:16:30 by mbarbari          #+#    #+#             *)
-(*   Updated: 2015/11/16 15:35:39 by mbarbari         ###   ########.fr       *)
+(*   Updated: 2015/11/16 16:24:55 by sebgoret         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
 exception EMPTY_FILE
 
 class tama (hp: int) (energy: int) (hygiene: int) (happyness: int) =
-    object (self)
-        val _name           = "Nyarlathotep"
-        val _default        = 100
-        val _hp_by_time     = 1
-        val _hp             = hp
-        val _energy         = energy
-        val _hygiene        = hygiene
-        val _happyness      = happyness
+object (self)
+	val _name           = "Nyarlathotep"
+	val _default        = 100
+	val _hp_by_time     = 1
+	val _hp             = hp
+	val _energy         = energy
+	val _hygiene        = hygiene
+	val _happyness      = happyness
 
         (* ****** CONTROLE FUNCTION ***************************************** *)
-        method control_value (oldval: int) (addval: int) :int = 
-            if ((oldval + addval) >= _default) then _default
-                else (oldval + addval)
+	method control_value (oldval: int) (addval: int) :int =
+		if ((oldval + addval) >= _default)
+			then _default
+		else
+			(oldval + addval)
 
         (* ****** GETTEUR *************************************************** *)
-        method get_name             = _name
-        method get_hp               = _hp
-        method get_energy           = _energy
-        method get_hygiene          = _hygiene
-        method get_happyness        = _happyness
+	method get_name             = _name
+	method get_hp               = _hp
+	method get_energy           = _energy
+	method get_hygiene          = _hygiene
+	method get_happyness        = _happyness
 
         (* ****** SETTEUR *************************************************** *)
-        method private set_hp            (a: int) :int =
-            (self#control_value self#get_hp a)
-        method private set_energy        (a: int) :int =
-            (self#control_value self#get_energy a)
-        method private set_hygiene       (a: int) :int =
-            (self#control_value self#get_hygiene a)
-        method private set_happyness     (a: int) :int =
-            (self#control_value self#get_happyness a)
+	method private set_hp            (a: int) :int =
+		(self#control_value self#get_hp a)
+	method private set_energy        (a: int) :int =
+		(self#control_value self#get_energy a)
+	method private set_hygiene       (a: int) :int =
+		(self#control_value self#get_hygiene a)
+	method private set_happyness     (a: int) :int =
+		(self#control_value self#get_happyness a)
 
-        method set_global        (a: int) (b: int) (c: int) (d: int) =
-            new tama  (self#control_value self#get_hp a)
-                            (self#control_value self#get_energy b)
-                            (self#control_value self#get_hygiene c)
-                            (self#control_value self#get_happyness d)
+	method set_global        (a: int) (b: int) (c: int) (d: int) =
+		new tama	(self#control_value self#get_hp a)
+					(self#control_value self#get_energy b)
+					(self#control_value self#get_hygiene c)
+					(self#control_value self#get_happyness d)
 
 
         (* ****** SPE METHOD ************************************************ *)
         (*                                        HP    EN    HY    HAP     * *)
-        method eat     :tama =  (self#set_global (25) (-10) (-20) (5))
-        method thunder :tama =  (self#set_global (-20) (25) (0) (-20))
-        method bath    :tama =  (self#set_global (-20) (-10) (25) (5))
-        method kill    :tama =  (self#set_global (-20) (-10) (0) (20))
+	method eat     :tama =  (self#set_global (25) (-10) (-20) (5))
+	method thunder :tama =  (self#set_global (-20) (25) (0) (-20))
+	method bath    :tama =  (self#set_global (-20) (-10) (25) (5))
+	method kill    :tama =  (self#set_global (-20) (-10) (0) (20))
 
-        method to_string :string = ("tama : " ^ (self#get_name) ^ " " ^
+	method to_string :string = ("tama : " ^ (self#get_name) ^ " " ^
                                     " | HP : " ^ (string_of_int self#get_hp) ^ " " ^
                                     " | Energy : " ^ (string_of_int self#get_energy) ^ " " ^
                                     " | Hygien : " ^ (string_of_int self#get_hygiene) ^ " " ^
                                     " | Happy : " ^ (string_of_int self#get_happyness) )
-    end
+end
 
 
 (* ************************************************************************** *)
