@@ -6,7 +6,7 @@
 (*   By: mbarbari <marvin@42.fr>                    +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/11/16 14:07:32 by mbarbari          #+#    #+#             *)
-(*   Updated: 2015/11/16 15:29:09 by mbarbari         ###   ########.fr       *)
+(*   Updated: 2015/11/16 16:21:19 by sebgoret         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -29,7 +29,7 @@ class virtual graphics_object screen (pos_x:int) (pos_y:int) (height:int) (width
         method virtual action : unit
 
         (* PUBLIC METHOD  *************************************************** *)
-        method draw (img: string) =
+        method draw (img:string) =
             let img_load = Sdlloader.load_image img in
             let pos_img = Sdlvideo.rect
                     self#getposx self#getposy self#getheight self#getwidth in

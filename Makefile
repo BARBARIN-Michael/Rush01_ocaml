@@ -10,9 +10,15 @@
 #                                                                              #
 # **************************************************************************** #
 
-RESULT     = tama_cthulhu
-SOURCES    = tama_cthulhu.ml
-LIBS       = bigarray sdl sdlloader sdlttf
-INCDIRS    = +sdl
+RESULT     =	tama_cthulhu
+SOURCES    =	Graphics.ml	\
+		Tama.ml		\
+		Timer.ml	\
+		Try.ml		\
+		main.ml
+LIBS       =	bigarray sdl sdlloader sdlttf sdlmixer
+INCDIRS    =	+sdl
+
+OCAMLLDFLAGS = -cclib  "-framework Cocoa"
 
 include OCamlMakefile
