@@ -39,7 +39,7 @@ class virtual graphics_object screen (pos_x:int) (pos_y:int) (height:int) (width
         method draw_text (str:string) =
             if ((String.compare str "") <> 0) then
                 begin
-                    let font = Sdlttf.open_font "FontAAjouter.ttf" 24 in
+                    let font = Sdlttf.open_font "rsc/Monaco.dfont" 24 in
                     let text = Sdlttf.render_text_blended font str ~fg:Sdlvideo.white in
                     let pos_text = Sdlvideo.rect
                             (self#getposx + (self#getwidth / 3))
