@@ -6,7 +6,7 @@
 (*   By: mbarbari <marvin@42.fr>                    +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/11/16 14:07:32 by mbarbari          #+#    #+#             *)
-(*   Updated: 2015/11/16 17:25:39 by mbarbari         ###   ########.fr       *)
+(*   Updated: 2015/11/16 17:29:29 by mbarbari         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -33,8 +33,8 @@ class virtual graphics_object screen (pos_x:int) (pos_y:int) (height:int) (width
             let img_load = Sdlloader.load_image img in
             let pos_img = Sdlvideo.rect
                     self#getposx self#getposy self#getheight self#getwidth in
-            Sdlvideo.blit_surface ~dst_rect:pos_img ~src:img_load ~dst:getscreen ();
-            Sdlvideo.flip getscreen; ()
+            Sdlvideo.blit_surface ~dst_rect:pos_img ~src:img_load ~dst:self#getscreen ();
+            Sdlvideo.flip self#getscreen; ()
 
         method draw_text (str:string) =
             if ((String.compare str "") <> 0) then
@@ -46,8 +46,8 @@ class virtual graphics_object screen (pos_x:int) (pos_y:int) (height:int) (width
                             (self#getposy + (self#getheight / 2))
                             (self#getwidth / 2)
                             (self#getheight / 2) in
-                    Sdlvideo.blit_surface ~dst_rect:pos_text ~src:text ~dst:getscreen ();
-                    Sdlvideo.flip getscreen; ()
+                    Sdlvideo.blit_surface ~dst_rect:pos_text ~src:text ~dst:self#getscreen ();
+                    Sdlvideo.flip self#getscreen; ()
                 end
     end
 
