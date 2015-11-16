@@ -6,7 +6,7 @@
 (*   By: mbarbari <mbarbari@student.42.fr>          +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/11/14 15:16:30 by mbarbari          #+#    #+#             *)
-(*   Updated: 2015/11/16 16:24:55 by sebgoret         ###   ########.fr       *)
+(*   Updated: 2015/11/16 16:41:34 by sebgoret         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -72,38 +72,38 @@ end
 (* ************************************************************************** *)
 
 let get_data_of_file (file: string) :tama=
-    let ic = open_in file in
-    let obj = (new tama 100 100 100 100) in
-        if (Sys.file_exists file) then
-        begin
-            if ((String.compare (input_line ic) "Nyarlathotep") = 0) then
-            begin
-                let rec loop_args (arg: int list) =
-                    try
-                        loop_args ((int_of_string (input_line ic))::arg)
-                    with |End_of_file -> close_in ic;
-                        if ((List.length arg) < 5) then
-                            (print_endline "Empty file or incomplete file!"; [])
-                        else (List.rev arg)
-                in 
-                let create_objs = function
-                    |[] -> (new tama 100 100 100 100)
-                    |a::b::c::d::[] -> (new tama a b c d)
-                    |_ -> (new tama 100 100 100 100)
-                in create_objs (loop_args [])
-            end
-            else
-                (new tama 100 100 100 100)
-        end
-        else
-            (new tama 100 100 100 100)
+	let ic = open_in file
+	and obj = (new tama 100 100 100 100) in
+	if (Sys.file_exists file) then
+		begin
+			if ((String.compare (input_line ic) "Nyarlathotep") = 0) then
+				begin
+					let rec loop_args (arg: int list) =
+						try
+							loop_args ((int_of_string (input_line ic))::arg)
+						with
+							|End_of_file -> close_in ic;
+								if ((List.length arg) < 5) then
+									(print_endline "Empty file or incomplete file!"; [])
+								else (List.rev arg)
+					in
+					let create_objs =
+						function
+							| a::b::c::d::[] -> (new tama a b c d)
+							| _ -> obj
+					in create_objs (loop_args [])
+				end
+			else
+				obj
+		end
+	else
+		obj
 
 let set_data_to_file (file: string) (obj: tama) =
-    let oc = open_out file in
-    Printf.fprintf oc "%s\n" (obj#get_name);
-    Printf.fprintf oc "%s\n" (string_of_int obj#get_hp);
-    Printf.fprintf oc "%s\n" (string_of_int obj#get_energy);
-    Printf.fprintf oc "%s\n" (string_of_int obj#get_hygiene);
-    Printf.fprintf oc "%s\n" (string_of_int obj#get_happyness);
-    close_out oc
-
+	let oc = open_out file in
+	Printf.fprintf oc "%s\n" (obj#get_name);
+	Printf.fprintf oc "%s\n" (string_of_int obj#get_hp);
+	Printf.fprintf oc "%s\n" (string_of_int obj#get_energy);
+	Printf.fprintf oc "%s\n" (string_of_int obj#get_hygiene);
+	Printf.fprintf oc "%s\n" (string_of_int obj#get_happyness);
+	close_out oc
