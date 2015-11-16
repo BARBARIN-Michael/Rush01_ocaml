@@ -6,7 +6,7 @@
 (*   By: mbarbari <mbarbari@student.42.fr>          +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/11/14 15:16:30 by mbarbari          #+#    #+#             *)
-(*   Updated: 2015/11/16 10:59:45 by mbarbari         ###   ########.fr       *)
+(*   Updated: 2015/11/16 15:35:39 by mbarbari         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -105,10 +105,3 @@ let set_data_to_file (file: string) (obj: tama) =
     Printf.fprintf oc "%s\n" (string_of_int obj#get_happyness);
     close_out oc
 
-let test_function objs = print_endline (objs#to_string)
-
-let () =
-    Sdl.init [`VIDEO];
-    Sdlvideo.set_video_mode 1024 980 [];
-    Sdltimer.delay 2000;
-    Sdl.quit ()
