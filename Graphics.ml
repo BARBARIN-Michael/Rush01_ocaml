@@ -6,7 +6,7 @@
 (*   By: mbarbari <marvin@42.fr>                    +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/11/16 14:07:32 by mbarbari          #+#    #+#             *)
-(*   Updated: 2015/11/16 16:21:19 by sebgoret         ###   ########.fr       *)
+(*   Updated: 2015/11/16 17:25:39 by mbarbari         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -46,7 +46,7 @@ class virtual graphics_object screen (pos_x:int) (pos_y:int) (height:int) (width
                             (self#getposy + (self#getheight / 2))
                             (self#getwidth / 2)
                             (self#getheight / 2) in
-                    Sdlvideo.blit_surface ~dst_rect:pos_img ~src:img_load ~dst:getscreen ();
+                    Sdlvideo.blit_surface ~dst_rect:pos_text ~src:text ~dst:getscreen ();
                     Sdlvideo.flip getscreen; ()
                 end
     end
