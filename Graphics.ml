@@ -6,7 +6,7 @@
 (*   By: mbarbari <marvin@42.fr>                    +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/11/16 14:07:32 by mbarbari          #+#    #+#             *)
-(*   Updated: 2015/11/16 17:29:29 by mbarbari         ###   ########.fr       *)
+(*   Updated: 2015/11/16 19:03:15 by sebgoret         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -26,7 +26,7 @@ class virtual graphics_object screen (pos_x:int) (pos_y:int) (height:int) (width
         method getwidth = _width
 
         (* VIRTUAL METHOD *************************************************** *)
-        method virtual action : unit
+        method virtual action : Tama.tama
 
         (* PUBLIC METHOD  *************************************************** *)
         method draw (img:string) =
@@ -51,12 +51,10 @@ class virtual graphics_object screen (pos_x:int) (pos_y:int) (height:int) (width
                 end
     end
 
-class button_eat (objtama: Tama.tama) (pos_x:int) (pos_y:int) (height:int) (width:int) =
+class button_eat (objtama: Tama.tama) (screen:Sdlvideo.surface) (pos_x:int) (pos_y:int) (height:int) (width:int) =
     object
-        inherit graphics_object pos_x pos_y height width
+        inherit graphics_object screen pos_x pos_y height width
 
         method action =
-            objtama = objtama#eat
+            objtama#eat
     end
-
-
