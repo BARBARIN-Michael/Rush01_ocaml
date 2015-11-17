@@ -6,7 +6,7 @@
 (*   By: mbarbari <marvin@42.fr>                    +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/11/16 14:07:32 by mbarbari          #+#    #+#             *)
-(*   Updated: 2015/11/16 19:03:15 by sebgoret         ###   ########.fr       *)
+(*   Updated: 2015/11/17 17:26:55 by mbarbari         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -52,9 +52,47 @@ class virtual graphics_object screen (pos_x:int) (pos_y:int) (height:int) (width
     end
 
 class button_eat (objtama: Tama.tama) (screen:Sdlvideo.surface) (pos_x:int) (pos_y:int) (height:int) (width:int) =
-    object
+    object (self)
         inherit graphics_object screen pos_x pos_y height width
 
         method action =
             objtama#eat
+
+        method draw_button =
+            self#draw "rsc/test.jpeg"
+
+    end
+
+class button_thunder (objtama: Tama.tama) (screen:Sdlvideo.surface) (pos_x:int) (pos_y:int) (height:int) (width:int) =
+    object
+        inherit graphics_object screen pos_x pos_y height width
+
+        method action =
+            objtama#thunder
+    end
+
+class button_bath (objtama: Tama.tama) (screen:Sdlvideo.surface) (pos_x:int) (pos_y:int) (height:int) (width:int) =
+    object
+        inherit graphics_object screen pos_x pos_y height width
+
+        method action =
+            objtama#bath
+    end
+
+class button_kill (objtama: Tama.tama) (screen:Sdlvideo.surface) (pos_x:int) (pos_y:int) (height:int) (width:int) =
+    object
+        inherit graphics_object screen pos_x pos_y height width
+
+        method action =
+            objtama#kill
+    end
+
+class background (objtama: Tama.tama) (screen:Sdlvideo.surface) (pos_x:int) (pos_y:int) (height:int) (width:int) =
+    object (self)
+        inherit graphics_object screen pos_x pos_y height width
+
+        method action = objtama
+
+        method draw_bg =
+            self#draw "rsc/bg.jpg"
     end
