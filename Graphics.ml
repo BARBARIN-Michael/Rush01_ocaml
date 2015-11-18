@@ -6,7 +6,7 @@
 (*   By: mbarbari <marvin@42.fr>                    +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/11/16 14:07:32 by mbarbari          #+#    #+#             *)
-(*   Updated: 2015/11/17 17:26:55 by mbarbari         ###   ########.fr       *)
+(*   Updated: 2015/11/18 09:50:19 by mbarbari         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -49,6 +49,10 @@ class virtual graphics_object screen (pos_x:int) (pos_y:int) (height:int) (width
                     Sdlvideo.blit_surface ~dst_rect:pos_text ~src:text ~dst:self#getscreen ();
                     Sdlvideo.flip self#getscreen; ()
                 end
+
+        method hasClicked (mouse_X:int) (mouse_Y:int) =
+            if (mouse_y > getposy && mouse_y < (getposy + getheight) && mouse_x > getposx && mouse_x < (getposx + getwidth)) then true
+            else false
     end
 
 class button_eat (objtama: Tama.tama) (screen:Sdlvideo.surface) (pos_x:int) (pos_y:int) (height:int) (width:int) =
@@ -59,7 +63,7 @@ class button_eat (objtama: Tama.tama) (screen:Sdlvideo.surface) (pos_x:int) (pos
             objtama#eat
 
         method draw_button =
-            self#draw "rsc/test.jpeg"
+            self#draw "rsc/eatbutton.jpg"
 
     end
 
@@ -69,6 +73,9 @@ class button_thunder (objtama: Tama.tama) (screen:Sdlvideo.surface) (pos_x:int) 
 
         method action =
             objtama#thunder
+
+        method draw_button =
+            self#draw "rsc/thunderbutton.jpg"
     end
 
 class button_bath (objtama: Tama.tama) (screen:Sdlvideo.surface) (pos_x:int) (pos_y:int) (height:int) (width:int) =
@@ -77,6 +84,9 @@ class button_bath (objtama: Tama.tama) (screen:Sdlvideo.surface) (pos_x:int) (po
 
         method action =
             objtama#bath
+
+        method draw_button =
+            self#draw "rsc/bathbutton.jpg"
     end
 
 class button_kill (objtama: Tama.tama) (screen:Sdlvideo.surface) (pos_x:int) (pos_y:int) (height:int) (width:int) =
@@ -85,6 +95,9 @@ class button_kill (objtama: Tama.tama) (screen:Sdlvideo.surface) (pos_x:int) (po
 
         method action =
             objtama#kill
+
+        method draw_button =
+            self#draw "rsc/killbutton.jpg"
     end
 
 class background (objtama: Tama.tama) (screen:Sdlvideo.surface) (pos_x:int) (pos_y:int) (height:int) (width:int) =
@@ -95,4 +108,14 @@ class background (objtama: Tama.tama) (screen:Sdlvideo.surface) (pos_x:int) (pos
 
         method draw_bg =
             self#draw "rsc/bg.jpg"
+    end
+
+class creature (objtama: Tama.tama) (screen:Sdlvideo.surface) (pos_x:int) (pos_y:int) (height:int) (width:int) =
+    object (self)
+        inherit graphics_object screen pos_x pos_y height width
+
+        method action = objtama
+
+        method draw_bg =
+            self#draw "rsc/Nya.jpg"
     end
