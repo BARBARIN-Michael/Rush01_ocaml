@@ -6,7 +6,7 @@
 (*   By: mbarbari <mbarbari@student.42.fr>          +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/11/14 15:16:30 by mbarbari          #+#    #+#             *)
-(*   Updated: 2015/11/18 16:42:10 by sebgoret         ###   ########.fr       *)
+(*   Updated: 2015/11/18 16:42:54 by sebgoret         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -44,7 +44,7 @@ object (self)
 		{<_hp = self#get_hp; _energy = (self#control_value self#get_energy a); _hygiene = self#get_hygiene; _happiness = self#get_happiness>}
 
 	method private set_hygiene       (a: int) =
-		{<_hp = self#get_hp; _energy = self#get_energy, _hygiene = (self#control_value self#get_hygiene a); _happiness = self#get_happiness>}
+		{<_hp = self#get_hp; _energy = self#get_energy; _hygiene = (self#control_value self#get_hygiene a); _happiness = self#get_happiness>}
 
 	method private set_happiness     (a: int) =
 		{<_hp = self#get_hp; _energy = self#get_energy; _hygiene = self#get_hygiene; _happiness = (self#control_value self#get_happiness a)>}
