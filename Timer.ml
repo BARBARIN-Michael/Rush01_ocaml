@@ -6,7 +6,7 @@
 (*   By: mbarbari <marvin@42.fr>                    +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/11/16 11:11:45 by mbarbari          #+#    #+#             *)
-(*   Updated: 2015/11/18 22:17:38 by sebgoret         ###   ########.fr       *)
+(*   Updated: 2015/11/18 22:43:29 by sebgoret         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -25,10 +25,10 @@ let handle_mouse (t:Tama.tama) (x, y) action =
 	if action = true
 	then
 		let screen = (Sdlvideo.set_video_mode 800 600 [])
-		in let eat = new Graphics.button_eat t screen 40 380 40 30
-		and thunder = new Graphics.button_thunder t screen 40 410 40 30
-		and bath = new Graphics.button_bath t screen 40 440 40 30
-		and kill = new Graphics.button_kill t screen 40 470 40 30
+		in let eat = new Graphics.button_eat t screen 40 380 40 120
+		and thunder = new Graphics.button_thunder t screen 40 410 40 120
+		and bath = new Graphics.button_bath t screen 40 440 40 120
+		and kill = new Graphics.button_kill t screen 40 470 40 120
 			in	let lst = [eat; thunder; bath; kill]
 				in	let newtama = handle_click t (x, y) lst
 					in	let yolo = new Graphics.creature newtama screen 300 80 120 80 in
@@ -63,10 +63,10 @@ let rec handle_event (t:Tama.tama) th =
 					and screen = (Sdlvideo.set_video_mode 800 600 [])
 					in	let bg = new Graphics.background newtama screen 0 0 200 200 in
 						bg#draw_bg;
-						let eat = new Graphics.button_eat newtama screen 40 380 40 30
-						and thunder = new Graphics.button_thunder newtama screen 40 410 40 30
-						and bath = new Graphics.button_bath newtama screen 40 440 40 30
-						and kill = new Graphics.button_kill newtama screen 40 470 40 30
+						let eat = new Graphics.button_eat newtama screen 40 380 40 120
+						and thunder = new Graphics.button_thunder newtama screen 40 410 40 120
+						and bath = new Graphics.button_bath newtama screen 40 440 40 120
+						and kill = new Graphics.button_kill newtama screen 40 470 40 120
 						in	static_redraw [eat; thunder; bath; kill];
 						let tama = new Graphics.creature newtama screen 300 80 120 80 in
 						tama#draw_bg;

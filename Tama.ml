@@ -6,7 +6,7 @@
 (*   By: mbarbari <mbarbari@student.42.fr>          +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/11/14 15:16:30 by mbarbari          #+#    #+#             *)
-(*   Updated: 2015/11/18 22:02:03 by mbarbari         ###   ########.fr       *)
+(*   Updated: 2015/11/18 22:42:23 by sebgoret         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -79,7 +79,7 @@ end
 let get_data_of_file (file: string) :tama=
 	if (Sys.file_exists file) then
 		begin
-	        let ic = open_in file in
+			let ic = open_in file in
 					let rec loop_args (arg: int list) =
 						try
 							loop_args ((int_of_string (input_line ic))::arg)
@@ -100,7 +100,7 @@ let get_data_of_file (file: string) :tama=
 
 let set_data_to_file (file: string) (obj: tama) =
 	let oc = open_out file in
-	Printf.fprintf oc "%s\n" (obj#get_name);
+(*	Printf.fprintf oc "%s\n" (obj#get_name);*)
 	Printf.fprintf oc "%s\n" (string_of_int obj#get_hp);
 	Printf.fprintf oc "%s\n" (string_of_int obj#get_energy);
 	Printf.fprintf oc "%s\n" (string_of_int obj#get_hygiene);

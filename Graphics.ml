@@ -6,7 +6,7 @@
 (*   By: mbarbari <marvin@42.fr>                    +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/11/16 14:07:32 by mbarbari          #+#    #+#             *)
-(*   Updated: 2015/11/18 22:33:34 by mbarbari         ###   ########.fr       *)
+(*   Updated: 2015/11/18 22:38:46 by sebgoret         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -70,6 +70,7 @@ class button_eat (objtama: Tama.tama) (screen:Sdlvideo.surface) (pos_x:int) (pos
             objtama#eat
 
         method draw_button =
+            self#draw_but "0x00000000";
             self#draw_text "EAT"
 
     end
@@ -82,7 +83,7 @@ class button_thunder (objtama: Tama.tama) (screen:Sdlvideo.surface) (pos_x:int) 
             objtama#thunder
 
         method draw_button =
-            self#draw_but "0x00FF0000";
+            self#draw_but "0x00000000";
             self#draw_text "THUNDER"
     end
 
@@ -94,6 +95,7 @@ class button_bath (objtama: Tama.tama) (screen:Sdlvideo.surface) (pos_x:int) (po
             objtama#bath
 
         method draw_button =
+            self#draw_but "0x00000000";
             self#draw_text "BATH"
     end
 
@@ -105,6 +107,7 @@ class button_kill (objtama: Tama.tama) (screen:Sdlvideo.surface) (pos_x:int) (po
             objtama#kill
 
         method draw_button =
+            self#draw_but "0x00000000";
             self#draw_text "KILL"
     end
 
@@ -126,9 +129,9 @@ class creature (objtama: Tama.tama) (screen:Sdlvideo.surface) (pos_x:int) (pos_y
 
 		method draw_bars =
 			self#draw_bar objtama#get_hp "Health" "0x00FF0000" (40, 100);
-			self#draw_bar objtama#get_energy "Thunder" "0x00FFFF00" (40, 140);
-			self#draw_bar objtama#get_hygiene "Bath" "0xFFFF0000" (40, 180);
-			self#draw_bar objtama#get_happiness "Kill" "0x0000FF00" (40, 220);
+			self#draw_bar objtama#get_energy "Energie" "0x00FFFF00" (40, 140);
+			self#draw_bar objtama#get_hygiene "Hygiene" "0xFFFF0000" (40, 180);
+			self#draw_bar objtama#get_happiness "Happiness" "0x0000FF00" (40, 220);
 
 		method draw_bg =
 			self#draw "rsc/Nya2.png";
