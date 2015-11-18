@@ -6,7 +6,7 @@
 (*   By: mbarbari <mbarbari@student.42.fr>          +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/11/14 15:16:30 by mbarbari          #+#    #+#             *)
-(*   Updated: 2015/11/18 16:42:54 by sebgoret         ###   ########.fr       *)
+(*   Updated: 2015/11/18 20:47:15 by sebgoret         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -62,6 +62,8 @@ object (self)
 	method thunder :tama =  (self#set_global (-20) (25) (0) (-20))
 	method bath    :tama =  (self#set_global (-20) (-10) (25) (5))
 	method kill    :tama =  (self#set_global (-20) (-10) (0) (20))
+
+	method hasOneZero :bool = (self#get_hp <= 0 || self#get_energy <= 0 || self#get_hygiene <= 0 || self#get_happiness <= 0)
 
 	method to_string :string = ("tama : " ^ (self#get_name) ^ " " ^
                                     " | HP : " ^ (string_of_int self#get_hp) ^ " " ^

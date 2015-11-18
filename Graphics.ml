@@ -6,7 +6,7 @@
 (*   By: mbarbari <marvin@42.fr>                    +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/11/16 14:07:32 by mbarbari          #+#    #+#             *)
-(*   Updated: 2015/11/18 19:50:46 by sebgoret         ###   ########.fr       *)
+(*   Updated: 2015/11/18 20:39:02 by sebgoret         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -34,7 +34,6 @@ class virtual graphics_object screen (pos_x:int) (pos_y:int) (height:int) (width
             let pos_img = Sdlvideo.rect
                     self#getposx self#getposy self#getheight self#getwidth in
             Sdlvideo.blit_surface ~dst_rect:pos_img ~src:img_load ~dst:self#getscreen ();
-            Sdlvideo.flip self#getscreen; ()
 
         method draw_text (str:string) =
             if ((String.compare str "") <> 0) then
@@ -47,7 +46,6 @@ class virtual graphics_object screen (pos_x:int) (pos_y:int) (height:int) (width
                             (self#getwidth / 2)
                             (self#getheight / 2) in
                     Sdlvideo.blit_surface ~dst_rect:pos_text ~src:text ~dst:self#getscreen ();
-                    Sdlvideo.flip self#getscreen; ()
                 end
 
 		method draw_bar (value:int) (name:string) (color:string) (x, y) =
@@ -56,11 +54,8 @@ class virtual graphics_object screen (pos_x:int) (pos_y:int) (height:int) (width
 			let text = Sdlttf.render_text_solid font (name ^ ": " ^ string_of_int value) ~fg:Sdlvideo.black in
 			Sdlvideo.blit_surface ~dst_rect:(Sdlvideo.rect x y 200 30) ~src:text ~dst:(self#getscreen) ()
 
-			method hasClicked (mouse_X:int) (mouse_Y:int) =
-				if (mouse_Y > self#getposy && mouse_Y < (self#getposy + self#getheight) && mouse_X > self#getposx && mouse_X < (self#getposx + self#getwidth))
-					then true
-				else
-					false
+		method hasClicked (mouse_X:int) (mouse_Y:int) =
+			(mouse_Y > self#getposy && mouse_Y < (self#getposy + self#getheight) && mouse_X > self#getposx && mouse_X < (self#getposx + self#getwidth))
 
 	end
 
@@ -125,12 +120,11 @@ class creature (objtama: Tama.tama) (screen:Sdlvideo.surface) (pos_x:int) (pos_y
 
         method action = objtama
 
-		method private draw_bars =
+		method draw_bars =
 			self#draw_bar objtama#get_hp "Health" "0x00FF0000" (40, 100);
 			self#draw_bar objtama#get_energy "Thunder" "0x00FFFF00" (40, 140);
 			self#draw_bar objtama#get_hygiene "Bath" "0xFFFF0000" (40, 180);
 			self#draw_bar objtama#get_happiness "Kill" "0x0000FF00" (40, 220);
-			Sdlvideo.flip self#getscreen
 
 		method draw_bg =
 			self#draw "rsc/Nya.jpg";
