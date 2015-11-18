@@ -6,13 +6,13 @@
 (*   By: mbarbari <mbarbari@student.42.fr>          +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/11/14 15:16:30 by mbarbari          #+#    #+#             *)
-(*   Updated: 2015/11/18 16:38:37 by sebgoret         ###   ########.fr       *)
+(*   Updated: 2015/11/18 16:40:58 by sebgoret         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
 exception EMPTY_FILE
 
-class tama (hp: int) (energy: int) (hygiene: int) (happyness: int) =
+class tama (hp: int) (energy: int) (hygiene: int) (happiness: int) =
 object (self)
 	val _name           = "Nyarlathotep"
 	val _default        = 100
@@ -20,7 +20,7 @@ object (self)
 	val _hp             = hp
 	val _energy         = energy
 	val _hygiene        = hygiene
-	val _happyness      = happyness
+	val _happiness      = happiness
 
         (* ****** CONTROLE FUNCTION ***************************************** *)
 	method control_value (oldval: int) (addval: int) :int =
@@ -34,25 +34,26 @@ object (self)
 	method get_hp               = _hp
 	method get_energy           = _energy
 	method get_hygiene          = _hygiene
-	method get_happyness        = _happyness
+	method get_happiness        = _happiness
 
         (* ****** SETTEUR *************************************************** *)
 	method private set_hp            (a: int) :int =
-		{<(self#control_value self#get_hp a); self#get_energy; self#get_hygiene; self#get_happyness>}
+		{<_hp = (self#control_value self#get_hp a); _energy = self#get_energy; _hygiene = self#get_hygiene; _happiness = self#get_happiness>}
 
 	method private set_energy        (a: int) :int =
-		{<self#get_hp; (self#control_value self#get_energy a); self#get_hygiene; self#get_happyness>}
+		{<_hp = self#get_hp; _energy = (self#control_value self#get_energy a); _hygiene = self#get_hygiene; _happiness = self#get_happiness>}
 
 	method private set_hygiene       (a: int) :int =
-		{<(self#get_hp; self#get_energy, (self#control_value self#get_hygiene a); self#get_happyness>}
-	method private set_happyness     (a: int) :int =
-		{<self#get_hp; self#get_energy; self#get_hygiene; (self#control_value self#get_happyness a)>}
+		{<_hp = self#get_hp; _energy = self#get_energy, _hygiene = (self#control_value self#get_hygiene a); _happiness = self#get_happiness>}
+
+	method private set_happiness     (a: int) :int =
+		{<_hp = self#get_hp; _energy = self#get_energy; _hygiene = self#get_hygiene; _happiness = (self#control_value self#get_happiness a)>}
 
 	method set_global        (a: int) (b: int) (c: int) (d: int) =
 		new tama	(self#control_value self#get_hp a)
 					(self#control_value self#get_energy b)
 					(self#control_value self#get_hygiene c)
-					(self#control_value self#get_happyness d)
+					(self#control_value self#get_happiness d)
 
 
     (* ****** SPE METHOD ************************************************ *)
@@ -66,7 +67,7 @@ object (self)
                                     " | HP : " ^ (string_of_int self#get_hp) ^ " " ^
                                     " | Energy : " ^ (string_of_int self#get_energy) ^ " " ^
                                     " | Hygien : " ^ (string_of_int self#get_hygiene) ^ " " ^
-                                    " | Happy : " ^ (string_of_int self#get_happyness) )
+                                    " | Happy : " ^ (string_of_int self#get_happiness) )
 end
 
 
@@ -107,5 +108,5 @@ let set_data_to_file (file: string) (obj: tama) =
 	Printf.fprintf oc "%s\n" (string_of_int obj#get_hp);
 	Printf.fprintf oc "%s\n" (string_of_int obj#get_energy);
 	Printf.fprintf oc "%s\n" (string_of_int obj#get_hygiene);
-	Printf.fprintf oc "%s\n" (string_of_int obj#get_happyness);
+	Printf.fprintf oc "%s\n" (string_of_int obj#get_happiness);
 	close_out oc
