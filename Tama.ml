@@ -6,7 +6,7 @@
 (*   By: mbarbari <mbarbari@student.42.fr>          +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/11/14 15:16:30 by mbarbari          #+#    #+#             *)
-(*   Updated: 2015/11/18 16:24:56 by sebgoret         ###   ########.fr       *)
+(*   Updated: 2015/11/18 16:38:37 by sebgoret         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -38,15 +38,15 @@ object (self)
 
         (* ****** SETTEUR *************************************************** *)
 	method private set_hp            (a: int) :int =
-		{<(self#control_value self#get_hp a), self#get_energy, self#get_hygiene, self#get_happyness>}
+		{<(self#control_value self#get_hp a); self#get_energy; self#get_hygiene; self#get_happyness>}
 
 	method private set_energy        (a: int) :int =
-		{<self#get_hp, (self#control_value self#get_energy a), self#get_hygiene, self#get_happyness>}
+		{<self#get_hp; (self#control_value self#get_energy a); self#get_hygiene; self#get_happyness>}
 
 	method private set_hygiene       (a: int) :int =
-		{<(self#get_hp, self#get_energy, (self#control_value self#get_hygiene a), self#get_happyness>}
+		{<(self#get_hp; self#get_energy, (self#control_value self#get_hygiene a); self#get_happyness>}
 	method private set_happyness     (a: int) :int =
-		{<self#get_hp, self#get_energy, self#get_hygiene, (self#control_value self#get_happyness a)>}
+		{<self#get_hp; self#get_energy; self#get_hygiene; (self#control_value self#get_happyness a)>}
 
 	method set_global        (a: int) (b: int) (c: int) (d: int) =
 		new tama	(self#control_value self#get_hp a)
@@ -55,8 +55,8 @@ object (self)
 					(self#control_value self#get_happyness d)
 
 
-        (* ****** SPE METHOD ************************************************ *)
-        (*                                        HP    EN    HY    HAP     * *)
+    (* ****** SPE METHOD ************************************************ *)
+    (*                                        HP    EN    HY    HAP     * *)
 	method eat     :tama =  (self#set_global (25) (-10) (-20) (5))
 	method thunder :tama =  (self#set_global (-20) (25) (0) (-20))
 	method bath    :tama =  (self#set_global (-20) (-10) (25) (5))
