@@ -6,7 +6,7 @@
 (*   By: mbarbari <marvin@42.fr>                    +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/11/16 14:07:32 by mbarbari          #+#    #+#             *)
-(*   Updated: 2015/11/18 22:18:45 by mbarbari         ###   ########.fr       *)
+(*   Updated: 2015/11/18 22:33:34 by mbarbari         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -48,8 +48,9 @@ class virtual graphics_object screen (pos_x:int) (pos_y:int) (height:int) (width
                     Sdlvideo.blit_surface ~dst_rect:pos_text ~src:text ~dst:self#getscreen ();
                 end
 
-(*        method draw_but (color:string) =
-*)
+        method draw_but (color:string) =
+			Sdlvideo.fill_rect ~rect:(Sdlvideo.rect self#getposx self#getposy self#getwidth self#getheight) screen (Int32.of_string color)
+
 		method draw_bar (value:int) (name:string) (color:string) (x, y) =
 			let font = Sdlttf.open_font "rsc/arial.ttf" 24 in
 			Sdlvideo.fill_rect ~rect:(Sdlvideo.rect x y (value * 2) 30) screen (Int32.of_string color) ;
@@ -81,6 +82,7 @@ class button_thunder (objtama: Tama.tama) (screen:Sdlvideo.surface) (pos_x:int) 
             objtama#thunder
 
         method draw_button =
+            self#draw_but "0x00FF0000";
             self#draw_text "THUNDER"
     end
 
