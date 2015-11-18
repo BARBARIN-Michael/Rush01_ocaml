@@ -6,7 +6,7 @@
 (*   By: mbarbari <marvin@42.fr>                    +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/11/16 15:37:56 by mbarbari          #+#    #+#             *)
-(*   Updated: 2015/11/18 22:43:19 by sebgoret         ###   ########.fr       *)
+(*   Updated: 2015/11/18 23:01:00 by sebgoret         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -29,14 +29,14 @@ let () =
 	let screen = (Sdlvideo.set_video_mode 800 600 [])
 	and newtama = (Tama.get_data_of_file "save.tama") in
 		let bg = new Graphics.background newtama screen 0 0 200 200 in
-        print_endline ("test de lecture : " ^ newtama#to_string);
+		print_endline (newtama#to_string);
 		bg#draw_bg;
 		let eat = new Graphics.button_eat newtama screen 40 380 40 120
-		and thunder = new Graphics.button_thunder newtama screen 40 410 40 120
-		and bath = new Graphics.button_bath newtama screen 40 440 40 120
-		and kill = new Graphics.button_kill newtama screen 40 470 40 120
+		and thunder = new Graphics.button_thunder newtama screen 40 430 40 120
+		and bath = new Graphics.button_bath newtama screen 40 480 40 120
+		and kill = new Graphics.button_kill newtama screen 40 530 40 120
 		in static_redraw [eat; thunder; bath; kill];
-		let tama = new Graphics.creature newtama screen 300 80 120 80 in
+		let tama = new Graphics.creature newtama screen 450 80 120 80 in
 		tama#draw_bg;
 		Sdlvideo.flip screen;
 		let timer_flag = ref false
