@@ -6,7 +6,7 @@
 (*   By: mbarbari <marvin@42.fr>                    +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/11/16 14:07:32 by mbarbari          #+#    #+#             *)
-(*   Updated: 2015/11/18 20:39:02 by sebgoret         ###   ########.fr       *)
+(*   Updated: 2015/11/18 21:26:22 by mbarbari         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -127,6 +127,6 @@ class creature (objtama: Tama.tama) (screen:Sdlvideo.surface) (pos_x:int) (pos_y
 			self#draw_bar objtama#get_happiness "Kill" "0x0000FF00" (40, 220);
 
 		method draw_bg =
-			self#draw "rsc/Nya.jpg";
+			self#draw "rsc/Nya2.png";
 			self#draw_bars
 	end
