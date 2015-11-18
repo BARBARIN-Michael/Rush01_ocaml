@@ -6,7 +6,7 @@
 (*   By: mbarbari <marvin@42.fr>                    +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/11/16 14:07:32 by mbarbari          #+#    #+#             *)
-(*   Updated: 2015/11/18 16:19:43 by sebgoret         ###   ########.fr       *)
+(*   Updated: 2015/11/18 19:50:46 by sebgoret         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -39,7 +39,7 @@ class virtual graphics_object screen (pos_x:int) (pos_y:int) (height:int) (width
         method draw_text (str:string) =
             if ((String.compare str "") <> 0) then
                 begin
-                    let font = Sdlttf.open_font "rsc/Monaco.dfont" 24 in
+                    let font = Sdlttf.open_font "rsc/arial.ttf" 24 in
                     let text = Sdlttf.render_text_blended font str ~fg:Sdlvideo.white in
                     let pos_text = Sdlvideo.rect
                             (self#getposx + (self#getwidth / 3))
@@ -50,10 +50,19 @@ class virtual graphics_object screen (pos_x:int) (pos_y:int) (height:int) (width
                     Sdlvideo.flip self#getscreen; ()
                 end
 
-        method hasClicked (mouse_X:int) (mouse_Y:int) =
-            if (mouse_Y > self#getposy && mouse_Y < (self#getposy + self#getheight) && mouse_X > self#getposx && mouse_X < (self#getposx + self#getwidth)) then true
-            else false
-    end
+		method draw_bar (value:int) (name:string) (color:string) (x, y) =
+			let font = Sdlttf.open_font "rsc/arial.ttf" 24 in
+			Sdlvideo.fill_rect ~rect:(Sdlvideo.rect x y (value * 2) 30) screen (Int32.of_string color) ;
+			let text = Sdlttf.render_text_solid font (name ^ ": " ^ string_of_int value) ~fg:Sdlvideo.black in
+			Sdlvideo.blit_surface ~dst_rect:(Sdlvideo.rect x y 200 30) ~src:text ~dst:(self#getscreen) ()
+
+			method hasClicked (mouse_X:int) (mouse_Y:int) =
+				if (mouse_Y > self#getposy && mouse_Y < (self#getposy + self#getheight) && mouse_X > self#getposx && mouse_X < (self#getposx + self#getwidth))
+					then true
+				else
+					false
+
+	end
 
 class button_eat (objtama: Tama.tama) (screen:Sdlvideo.surface) (pos_x:int) (pos_y:int) (height:int) (width:int) =
     object (self)
@@ -63,7 +72,7 @@ class button_eat (objtama: Tama.tama) (screen:Sdlvideo.surface) (pos_x:int) (pos
             objtama#eat
 
         method draw_button =
-            self#draw "rsc/eatbutton.jpg"
+            self#draw_text "EAT"
 
     end
 
@@ -75,7 +84,7 @@ class button_thunder (objtama: Tama.tama) (screen:Sdlvideo.surface) (pos_x:int) 
             objtama#thunder
 
         method draw_button =
-            self#draw "rsc/thunderbutton.jpg"
+            self#draw_text "THUNDER"
     end
 
 class button_bath (objtama: Tama.tama) (screen:Sdlvideo.surface) (pos_x:int) (pos_y:int) (height:int) (width:int) =
@@ -86,7 +95,7 @@ class button_bath (objtama: Tama.tama) (screen:Sdlvideo.surface) (pos_x:int) (po
             objtama#bath
 
         method draw_button =
-            self#draw "rsc/bathbutton.jpg"
+            self#draw_text "BATH"
     end
 
 class button_kill (objtama: Tama.tama) (screen:Sdlvideo.surface) (pos_x:int) (pos_y:int) (height:int) (width:int) =
@@ -97,7 +106,7 @@ class button_kill (objtama: Tama.tama) (screen:Sdlvideo.surface) (pos_x:int) (po
             objtama#kill
 
         method draw_button =
-            self#draw "rsc/killbutton.jpg"
+            self#draw_text "KILL"
     end
 
 class background (objtama: Tama.tama) (screen:Sdlvideo.surface) (pos_x:int) (pos_y:int) (height:int) (width:int) =
@@ -116,6 +125,14 @@ class creature (objtama: Tama.tama) (screen:Sdlvideo.surface) (pos_x:int) (pos_y
 
         method action = objtama
 
-        method draw_bg =
-            self#draw "rsc/Nya.jpg"
-    end
+		method private draw_bars =
+			self#draw_bar objtama#get_hp "Health" "0x00FF0000" (40, 100);
+			self#draw_bar objtama#get_energy "Thunder" "0x00FFFF00" (40, 140);
+			self#draw_bar objtama#get_hygiene "Bath" "0xFFFF0000" (40, 180);
+			self#draw_bar objtama#get_happiness "Kill" "0x0000FF00" (40, 220);
+			Sdlvideo.flip self#getscreen
+
+		method draw_bg =
+			self#draw "rsc/Nya.jpg";
+			self#draw_bars
+	end
