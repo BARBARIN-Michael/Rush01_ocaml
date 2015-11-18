@@ -6,7 +6,7 @@
 (*   By: mbarbari <marvin@42.fr>                    +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/11/16 14:07:32 by mbarbari          #+#    #+#             *)
-(*   Updated: 2015/11/18 22:38:46 by sebgoret         ###   ########.fr       *)
+(*   Updated: 2015/11/18 22:50:17 by mbarbari         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -41,10 +41,10 @@ class virtual graphics_object screen (pos_x:int) (pos_y:int) (height:int) (width
                     let font = Sdlttf.open_font "rsc/arial.ttf" 24 in
                     let text = Sdlttf.render_text_blended font str ~fg:Sdlvideo.white in
                     let pos_text = Sdlvideo.rect
-                            (self#getposx + (self#getwidth / 3))
-                            (self#getposy + (self#getheight / 2))
-                            (self#getwidth / 2)
-                            (self#getheight / 2) in
+                            (self#getposx)
+                            (self#getposy)
+                            (self#getwidth)
+                            (self#getheight) in
                     Sdlvideo.blit_surface ~dst_rect:pos_text ~src:text ~dst:self#getscreen ();
                 end
 
@@ -70,7 +70,7 @@ class button_eat (objtama: Tama.tama) (screen:Sdlvideo.surface) (pos_x:int) (pos
             objtama#eat
 
         method draw_button =
-            self#draw_but "0x00000000";
+            self#draw_but "0x00142857";
             self#draw_text "EAT"
 
     end
@@ -83,7 +83,7 @@ class button_thunder (objtama: Tama.tama) (screen:Sdlvideo.surface) (pos_x:int) 
             objtama#thunder
 
         method draw_button =
-            self#draw_but "0x00000000";
+            self#draw_but "0x00142857";
             self#draw_text "THUNDER"
     end
 
@@ -95,7 +95,7 @@ class button_bath (objtama: Tama.tama) (screen:Sdlvideo.surface) (pos_x:int) (po
             objtama#bath
 
         method draw_button =
-            self#draw_but "0x00000000";
+            self#draw_but "0x00142857";
             self#draw_text "BATH"
     end
 
@@ -107,7 +107,7 @@ class button_kill (objtama: Tama.tama) (screen:Sdlvideo.surface) (pos_x:int) (po
             objtama#kill
 
         method draw_button =
-            self#draw_but "0x00000000";
+            self#draw_but "0x00142857";
             self#draw_text "KILL"
     end
 
