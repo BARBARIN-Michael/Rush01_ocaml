@@ -6,7 +6,7 @@
 (*   By: mbarbari <marvin@42.fr>                    +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/11/16 11:11:45 by mbarbari          #+#    #+#             *)
-(*   Updated: 2015/11/18 16:34:30 by sebgoret         ###   ########.fr       *)
+(*   Updated: 2015/11/18 16:44:17 by sebgoret         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -26,7 +26,7 @@ let rec handle_click (handle_object:Graphics.graphics_object list) (x, y) t:Tama
 
 let handle_mouse (handle_object:Graphics.graphics_object list) (x, y) action t:Tama.tama =
 		if action = true
-			then List.iter (fun a -> if (a#hasClicked x y) then a#action) handle_object
+			then handle_click handle_object (x, y) t
 		else
 			t
 
