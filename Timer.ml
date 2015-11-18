@@ -6,7 +6,7 @@
 (*   By: mbarbari <marvin@42.fr>                    +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/11/16 11:11:45 by mbarbari          #+#    #+#             *)
-(*   Updated: 2015/11/18 20:48:19 by sebgoret         ###   ########.fr       *)
+(*   Updated: 2015/11/18 20:49:54 by sebgoret         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -20,6 +20,8 @@ let rec timer_loop ((flag:bool), callback) (timing:float) =
 		then Thread.exit
 	else
 		(Thread.delay timing; callback; timer_loop (flag, callback) timing )
+
+let timer
 
 let rec handle_click (t:Tama.tama) (x, y) lst =
 	match lst with
