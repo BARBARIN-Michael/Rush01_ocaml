@@ -6,7 +6,7 @@
 (*   By: mbarbari <marvin@42.fr>                    +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/11/16 11:11:45 by mbarbari          #+#    #+#             *)
-(*   Updated: 2015/11/18 20:49:54 by sebgoret         ###   ########.fr       *)
+(*   Updated: 2015/11/18 21:20:51 by sebgoret         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -14,14 +14,6 @@ type t_coord = int * int
 
 let rec static_redraw button_list =
 	List.iter (function a -> a#draw_button) button_list
-
-let rec timer_loop ((flag:bool), callback) (timing:float) =
-	if (not flag)
-		then Thread.exit
-	else
-		(Thread.delay timing; callback; timer_loop (flag, callback) timing )
-
-let timer
 
 let rec handle_click (t:Tama.tama) (x, y) lst =
 	match lst with
@@ -49,12 +41,7 @@ let handle_mouse (t:Tama.tama) (x, y) action =
 	else
 		t
 
-let handle_key (t:Tama.tama) =
-	match Sdlevent.wait_event () with
-		| Sdlevent.KEYDOWN { Sdlevent.keysym = Sdlkey.KEY_ESCAPE } -> exit 0
-		| _ -> t
-
-let rec handle_event (t:Tama.tama) =
+let rec handle_event (t:Tama.tama) th =
 	if (t#hasOneZero)
 		then
 		begin
@@ -64,9 +51,32 @@ let rec handle_event (t:Tama.tama) =
 	else
 		match Sdlevent.wait_event () with
 			| Sdlevent.MOUSEBUTTONDOWN ({ Sdlevent.mbe_button = Sdlmouse.BUTTON_LEFT } as c) ->
-				handle_event (handle_mouse t (c.Sdlevent.mbe_x, c.Sdlevent.mbe_y) true)
+				handle_event (handle_mouse t (c.Sdlevent.mbe_x, c.Sdlevent.mbe_y) true) th
 			| Sdlevent.MOUSEBUTTONUP ({ Sdlevent.mbe_button = Sdlmouse.BUTTON_LEFT } as c) ->
-				handle_event (handle_mouse t (c.Sdlevent.mbe_x, c.Sdlevent.mbe_y) false)
+				handle_event (handle_mouse t (c.Sdlevent.mbe_x, c.Sdlevent.mbe_y) false) th
 			| Sdlevent.KEYDOWN { Sdlevent.keysym = Sdlkey.KEY_ESCAPE } ->
-				handle_key t;
-			| _ -> handle_event t
+				handle_key t th;
+			| Sdlevent.USER 0 ->
+				begin
+					print_endline "you're dying";
+					let newtama = t#set_global (-1) 0 0 0
+					and screen = (Sdlvideo.set_video_mode 800 600 [])
+					in	let bg = new Graphics.background newtama screen 0 0 200 200 in
+						bg#draw_bg;
+						let eat = new Graphics.button_eat newtama screen 40 380 40 30
+						and thunder = new Graphics.button_thunder newtama screen 40 410 40 30
+						and bath = new Graphics.button_bath newtama screen 40 440 40 30
+						and kill = new Graphics.button_kill newtama screen 40 470 40 30
+						in	static_redraw [eat; thunder; bath; kill];
+						let tama = new Graphics.creature newtama screen 300 80 120 80 in
+						tama#draw_bg;
+						ignore (Sdlvideo.flip screen);
+						handle_event newtama th
+				end
+			| _ -> handle_event t th
+
+and handle_key (t:Tama.tama) th =
+	match Sdlevent.wait_event () with
+		| Sdlevent.KEYDOWN { Sdlevent.keysym = Sdlkey.KEY_ESCAPE } -> t
+		| _ -> (handle_event t th)
+

@@ -6,9 +6,17 @@
 (*   By: mbarbari <marvin@42.fr>                    +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/11/16 15:37:56 by mbarbari          #+#    #+#             *)
-(*   Updated: 2015/11/18 20:41:27 by sebgoret         ###   ########.fr       *)
+(*   Updated: 2015/11/18 21:13:34 by sebgoret         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
+
+let rec timer_loop (flag, callback)=
+	if (!flag)
+		then Thread.exit
+	else
+		(Thread.delay 1.; callback (); timer_loop (flag, callback))
+
+let timer_cb () = Sdlevent.add [Sdlevent.USER 0]
 
 let rec static_redraw button_list =
 	List.iter (function a -> a#draw_button) button_list
@@ -30,4 +38,10 @@ let () =
 		let tama = new Graphics.creature newtama screen 300 80 120 80 in
 		tama#draw_bg;
 		Sdlvideo.flip screen;
-		ignore (Timer.handle_event newtama)
+		let timer_flag = ref false
+		in
+			let th = Thread.create timer_loop (timer_flag, timer_cb)
+			in	ignore (Timer.handle_event newtama th);
+				timer_flag := true;
+				print_endline ("You exit the game.");
+				Thread.join th
