@@ -6,7 +6,7 @@
 (*   By: mbarbari <mbarbari@student.42.fr>          +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/11/14 15:16:30 by mbarbari          #+#    #+#             *)
-(*   Updated: 2015/11/18 16:40:58 by sebgoret         ###   ########.fr       *)
+(*   Updated: 2015/11/18 16:42:10 by sebgoret         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -37,16 +37,16 @@ object (self)
 	method get_happiness        = _happiness
 
         (* ****** SETTEUR *************************************************** *)
-	method private set_hp            (a: int) :int =
+	method private set_hp            (a: int) =
 		{<_hp = (self#control_value self#get_hp a); _energy = self#get_energy; _hygiene = self#get_hygiene; _happiness = self#get_happiness>}
 
-	method private set_energy        (a: int) :int =
+	method private set_energy        (a: int) =
 		{<_hp = self#get_hp; _energy = (self#control_value self#get_energy a); _hygiene = self#get_hygiene; _happiness = self#get_happiness>}
 
-	method private set_hygiene       (a: int) :int =
+	method private set_hygiene       (a: int) =
 		{<_hp = self#get_hp; _energy = self#get_energy, _hygiene = (self#control_value self#get_hygiene a); _happiness = self#get_happiness>}
 
-	method private set_happiness     (a: int) :int =
+	method private set_happiness     (a: int) =
 		{<_hp = self#get_hp; _energy = self#get_energy; _hygiene = self#get_hygiene; _happiness = (self#control_value self#get_happiness a)>}
 
 	method set_global        (a: int) (b: int) (c: int) (d: int) =
