@@ -6,7 +6,7 @@
 (*   By: mbarbari <marvin@42.fr>                    +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/11/16 11:11:45 by mbarbari          #+#    #+#             *)
-(*   Updated: 2015/11/18 09:42:34 by mbarbari         ###   ########.fr       *)
+(*   Updated: 2015/11/18 16:34:30 by sebgoret         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -18,10 +18,17 @@ let rec timer_loop ((flag:bool), callback) (timing:float) =
 	else
 		(Thread.delay timing; callback; timer_loop (flag, callback) timing )
 
+let rec handle_click (handle_object:Graphics.graphics_object list) (x, y) t:Tama.tama =
+	match handle_object with
+		| h::tail when (h#hasClicked x y) -> h#action
+		| h::tail -> handle_click tail (x, y) t
+		| _ -> t
 
-let handle_mouse (handle_object:Graphics.graphics_object list) (x, y) action =
-		if action = 1 then List.iter (fun a -> if (a#hasClicked x y) then a#action) handle_object
-
+let handle_mouse (handle_object:Graphics.graphics_object list) (x, y) action t:Tama.tama =
+		if action = true
+			then List.iter (fun a -> if (a#hasClicked x y) then a#action) handle_object
+		else
+			t
 
 let handle_key () =
 	match Sdlevent.wait_event () with
@@ -32,9 +39,9 @@ let rec handle_event (handle_object:Graphics.graphics_object list) (t:Tama.tama)
 	if Sdlevent.has_event ()
 		then match Sdlevent.wait_event () with
 				| Sdlevent.MOUSEBUTTONDOWN ({ Sdlevent.mbe_button = Sdlmouse.BUTTON_LEFT } as c) ->
-                   handle_event handle_object (handle_mouse handle_object (c.Sdlevent.mbe_x, c.Sdlevent.mbe_y) 1)
+					handle_event handle_object (handle_mouse handle_object (c.Sdlevent.mbe_x, c.Sdlevent.mbe_y) true t)
 				| Sdlevent.MOUSEBUTTONUP ({ Sdlevent.mbe_button = Sdlmouse.BUTTON_LEFT } as c) ->
-                    handle_event handle_object (handle_mouse handle_object (c.Sdlevent.mbe_x, c.Sdlevent.mbe_y) 2)
+					handle_event handle_object (handle_mouse handle_object (c.Sdlevent.mbe_x, c.Sdlevent.mbe_y) false t)
 				| Sdlevent.KEYDOWN { Sdlevent.keysym = Sdlkey.KEY_ESCAPE } ->
-                    handle_key (); handle_event handle_object t
+					handle_key (); handle_event handle_object t
 				| _ -> handle_event handle_object t

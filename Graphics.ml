@@ -6,7 +6,7 @@
 (*   By: mbarbari <marvin@42.fr>                    +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/11/16 14:07:32 by mbarbari          #+#    #+#             *)
-(*   Updated: 2015/11/18 09:50:19 by mbarbari         ###   ########.fr       *)
+(*   Updated: 2015/11/18 16:19:43 by sebgoret         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -51,7 +51,7 @@ class virtual graphics_object screen (pos_x:int) (pos_y:int) (height:int) (width
                 end
 
         method hasClicked (mouse_X:int) (mouse_Y:int) =
-            if (mouse_y > getposy && mouse_y < (getposy + getheight) && mouse_x > getposx && mouse_x < (getposx + getwidth)) then true
+            if (mouse_Y > self#getposy && mouse_Y < (self#getposy + self#getheight) && mouse_X > self#getposx && mouse_X < (self#getposx + self#getwidth)) then true
             else false
     end
 
@@ -68,7 +68,7 @@ class button_eat (objtama: Tama.tama) (screen:Sdlvideo.surface) (pos_x:int) (pos
     end
 
 class button_thunder (objtama: Tama.tama) (screen:Sdlvideo.surface) (pos_x:int) (pos_y:int) (height:int) (width:int) =
-    object
+    object (self)
         inherit graphics_object screen pos_x pos_y height width
 
         method action =
@@ -79,7 +79,7 @@ class button_thunder (objtama: Tama.tama) (screen:Sdlvideo.surface) (pos_x:int) 
     end
 
 class button_bath (objtama: Tama.tama) (screen:Sdlvideo.surface) (pos_x:int) (pos_y:int) (height:int) (width:int) =
-    object
+    object (self)
         inherit graphics_object screen pos_x pos_y height width
 
         method action =
@@ -90,7 +90,7 @@ class button_bath (objtama: Tama.tama) (screen:Sdlvideo.surface) (pos_x:int) (po
     end
 
 class button_kill (objtama: Tama.tama) (screen:Sdlvideo.surface) (pos_x:int) (pos_y:int) (height:int) (width:int) =
-    object
+    object (self)
         inherit graphics_object screen pos_x pos_y height width
 
         method action =
