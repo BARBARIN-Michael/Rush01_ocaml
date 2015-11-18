@@ -6,7 +6,7 @@
 (*   By: mbarbari <marvin@42.fr>                    +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/11/16 14:07:32 by mbarbari          #+#    #+#             *)
-(*   Updated: 2015/11/18 21:26:22 by mbarbari         ###   ########.fr       *)
+(*   Updated: 2015/11/18 22:18:45 by mbarbari         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -48,6 +48,8 @@ class virtual graphics_object screen (pos_x:int) (pos_y:int) (height:int) (width
                     Sdlvideo.blit_surface ~dst_rect:pos_text ~src:text ~dst:self#getscreen ();
                 end
 
+(*        method draw_but (color:string) =
+*)
 		method draw_bar (value:int) (name:string) (color:string) (x, y) =
 			let font = Sdlttf.open_font "rsc/arial.ttf" 24 in
 			Sdlvideo.fill_rect ~rect:(Sdlvideo.rect x y (value * 2) 30) screen (Int32.of_string color) ;
