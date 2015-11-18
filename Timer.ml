@@ -6,7 +6,7 @@
 (*   By: mbarbari <marvin@42.fr>                    +#+  +:+       +#+        *)
 (*                                                +#+#+#+#+#+   +#+           *)
 (*   Created: 2015/11/16 11:11:45 by mbarbari          #+#    #+#             *)
-(*   Updated: 2015/11/18 21:20:51 by sebgoret         ###   ########.fr       *)
+(*   Updated: 2015/11/18 22:17:38 by sebgoret         ###   ########.fr       *)
 (*                                                                            *)
 (* ************************************************************************** *)
 
@@ -55,7 +55,7 @@ let rec handle_event (t:Tama.tama) th =
 			| Sdlevent.MOUSEBUTTONUP ({ Sdlevent.mbe_button = Sdlmouse.BUTTON_LEFT } as c) ->
 				handle_event (handle_mouse t (c.Sdlevent.mbe_x, c.Sdlevent.mbe_y) false) th
 			| Sdlevent.KEYDOWN { Sdlevent.keysym = Sdlkey.KEY_ESCAPE } ->
-				handle_key t th;
+				t
 			| Sdlevent.USER 0 ->
 				begin
 					print_endline "you're dying";
@@ -74,9 +74,3 @@ let rec handle_event (t:Tama.tama) th =
 						handle_event newtama th
 				end
 			| _ -> handle_event t th
-
-and handle_key (t:Tama.tama) th =
-	match Sdlevent.wait_event () with
-		| Sdlevent.KEYDOWN { Sdlevent.keysym = Sdlkey.KEY_ESCAPE } -> t
-		| _ -> (handle_event t th)
-
